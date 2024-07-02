@@ -21,18 +21,6 @@ public class UserSession {
     @Column(name = "userId")
     private int userId;
 
-    @Column(name = "otp")
-    private int otp;
-
-    @Column(name = "isOtpActivated")
-    private Boolean isOtpActivated;
-
-    @Column(name = "otpGeneratedAt")
-    private Date otpGeneratedAt;
-
-    @Column(name = "otpExpiredAt")
-    private Date otpExpiredAt;
-
     @Column(name = "refreshKey")
     private String refreshKey;
 

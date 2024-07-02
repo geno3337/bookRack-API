@@ -33,4 +33,9 @@ public class AppUtility {
         Gson gson = new Gson();
         return gson.toJson(object);
     }
+
+    public static Object convertJsonToObject(String jsonString) {
+        Gson gson = new Gson();
+        return gson.fromJson(jsonString, Object.class);
+    }
 }

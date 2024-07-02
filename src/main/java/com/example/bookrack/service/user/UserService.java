@@ -3,6 +3,8 @@ package com.example.bookrack.service.user;
 import com.example.bookrack.entity.Registration;
 import com.example.bookrack.entity.User;
 import com.example.bookrack.entity.UserActivity;
+import com.example.bookrack.pojo.GitHubUser;
+import com.example.bookrack.pojo.GoogleUser;
 
 public interface UserService {
 
@@ -12,7 +14,7 @@ public interface UserService {
 
     User createNewUser(Registration pendingRequest, String email);
 
-    void saveUser(User newUser);
+    User saveUser(User newUser);
 
     UserActivity addNewUserActivity(int applicationId, Integer UserSessionId, int userInfoId, String action);
 
@@ -21,4 +23,8 @@ public interface UserService {
     User getActiveUserByPasswordResetToken(String passwordResetToken);
 
     User getActiveUserById(int userId);
+
+    User createNewSocialLoginUser(GoogleUser googleUser, String source);
+
+    User createNewSocialLoginUser(GitHubUser gitHubUser, String source);
 }

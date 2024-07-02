@@ -5,9 +5,10 @@ import org.springframework.stereotype.Service;
 
 
 public interface UserSessionService {
-    UserSession initiateUserSession(int userId, int appId, String loggedInUsing, int otp);
+    UserSession initiateUserSession(int userId, int appId, String loggedInUsing);
 
     UserSession activateNewSession(UserSession userSession, String refreshKey, String accessToken);
 
     UserSession getActiveSessionByAccessTokenIdentifier(String accessTokenIdentifier);
+
 }

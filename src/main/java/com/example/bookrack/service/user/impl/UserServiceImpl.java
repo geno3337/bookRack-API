@@ -3,12 +3,16 @@ package com.example.bookrack.service.user.impl;
 import com.example.bookrack.entity.Registration;
 import com.example.bookrack.entity.User;
 import com.example.bookrack.entity.UserActivity;
+import com.example.bookrack.pojo.GitHubUser;
+import com.example.bookrack.pojo.GoogleUser;
 import com.example.bookrack.repository.RegistrationRepository;
 import com.example.bookrack.repository.UserActivityRepository;
 import com.example.bookrack.repository.UserRepository;
 import com.example.bookrack.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -45,8 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User newUser) {
-        userRepository.save(newUser);
+    public User saveUser(User newUser) {
+        return userRepository.save(newUser);
     }
 
     @Override
@@ -72,5 +76,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getActiveUserById(int userId) {
         return userRepository.findByIdAndIsActive(userId,true);
+    }
+
+    @Override
+    public User createNewSocialLoginUser(GoogleUser googleUser, String source) {
+        User newUser = new User();
+        newUser.setName(googleUser.getName());
+        newUser.setEmail(googleUser.getEmail());
+        newUser.setProfileImage(googleUser.getPicture());
+        newUser.setIsActive(true);
+        newUser.setSignedInUsing(source);
+        newUser.setIsEmailVerified(true);
+        newUser.setRole("user");
+        newUser.setCreatedAt(new Date());
+        return userRepository.save(newUser);
+    }
+
+    @Override
+    public User createNewSocialLoginUser(GitHubUser gitHubUser, String source) {
+        User newUser = new User();
+        newUser.setName(gitHubUser.getName());
+        newUser.setEmail(gitHubUser.getEmail());
+        newUser.setProfileImage(gitHubUser.getAvatar_url());
+        newUser.setIsActive(true);
+        newUser.setSignedInUsing(source);
+        newUser.setIsEmailVerified(true);
+        newUser.setRole("user");
+        newUser.setCreatedAt(new Date());
+        return userRepository.save(newUser);
     }
 }

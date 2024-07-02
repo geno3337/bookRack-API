@@ -18,7 +18,7 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @NotEmpty
+
     @Column(name = "name")
     private String name;
 
@@ -26,7 +26,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @NotEmpty
+
     @Column(name = "password")
     private String password;
 

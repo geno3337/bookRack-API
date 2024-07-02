@@ -16,23 +16,18 @@ public class UserSessionServiceImpl implements UserSessionService {
     private UserSessionRepository userSessionRepository;
 
     @Override
-    public UserSession initiateUserSession(int userId, int appId, String loggedInUsing, int otp) {
+    public UserSession initiateUserSession(int userId, int appId, String loggedInUsing) {
         Date now = new Date();
         UserSession userSession = new UserSession();
         userSession.setUserId(userId);
         userSession.setApplicationId(appId);
         userSession.setLoggedInUsing(loggedInUsing);
-        userSession.setOtp(otp);
-        userSession.setOtpGeneratedAt(now);
-        userSession.setIsOtpActivated(false);
-        userSession.setOtpExpiredAt(DateUtils.addMinutes(now,15));
         return saveSession(userSession);
     }
 
     @Override
     public UserSession activateNewSession(UserSession userSession, String refreshKey, String accessToken) {
         Date now = new Date();
-        userSession.setIsOtpActivated(true);
         userSession.setAccessToken(accessToken);
         userSession.setRefreshKey(refreshKey);
         userSession.setAccessTokenCreatedAt(now);
@@ -49,6 +44,8 @@ public class UserSessionServiceImpl implements UserSessionService {
     public UserSession getActiveSessionByAccessTokenIdentifier(String accessTokenIdentifier) {
         return userSessionRepository.findByAccessTokenAndIsAccessTokenActive(accessTokenIdentifier,true);
     }
+
+
 
 
     private UserSession saveSession(UserSession userSession) {

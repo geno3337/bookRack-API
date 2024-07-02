@@ -18,8 +18,7 @@ public class UserSessionUtil {
     private UserSessionService userSessionService;
 
     public UserSession initiateUserVerification(User user, AllowedApp appInfo, String loggedInUsing) {
-        int otp = AppUtility.genterateRandomNumber(4,4);
-        return userSessionService.initiateUserSession(user.getId(),appInfo.getId(),loggedInUsing,otp) ;
+        return userSessionService.initiateUserSession(user.getId(),appInfo.getId(),loggedInUsing) ;
     }
 
     public UserSession activateNewSession(UserSession userSession) {
